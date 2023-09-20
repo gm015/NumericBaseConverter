@@ -1,18 +1,17 @@
 #include <stdio.h>
 #define DEBUG printf
 
+// reset values
+void	reset_values(char bin[]) {
+
+	for (int i = 0; i < 8; ++i)
+		bin[i]='0';
+	bin[8]='\0';
+}
+
 void	convert(int x, char bin[]) {
 
-	// reset values
-	bin[0]='0';
-	bin[1]='0';
-	bin[2]='0';
-	bin[3]='0';
-	bin[4]='0';
-	bin[5]='0';
-	bin[6]='0';
-	bin[7]='0';
-	bin[8]='\0';
+	reset_values(bin);
 
 	int i = 0, pos = x;
 	for (; x >> i; ++i) {
@@ -21,7 +20,6 @@ void	convert(int x, char bin[]) {
 			bin[7 - i] = '1';
 		//DEBUG("[ %d ] pos: %d\n",i,pos);
 	}
-
 }
 
 int main() {
@@ -36,7 +34,7 @@ int main() {
 	while (i < 128) {
 		i *= 2;
 		convert(i,a[j]);
-		DEBUG("i:[%d] value: %s\n", i,(char *)a[j]);
+		DEBUG("i:[%-3d] value: %s\n", i,(char *)a[j]);
 		j += 1;
 	}
 	
