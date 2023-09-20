@@ -1,14 +1,15 @@
 TARGET:=main
 SRC:= dec_to_bin.c
 OBJ:= dec_to_bin.o
+CFLAGS:= -Wall -Werror -Wextra -g -D DEBUG=1
 
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	cc -g $< -o $@
+	cc $(CFLAGS) $< -o $@
 
 %.o:%.c
-	cc -g -c $< $^
+	cc $(CFLAGS) -c $< $^
 
 c:
 	rm $(TARGET) $(OBJ)
