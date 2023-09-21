@@ -1,4 +1,4 @@
-# convert decimal values (integers) to binary format
+# Convert decimal values (integers) to 32-bit binary format
 
 ## Installation
 
