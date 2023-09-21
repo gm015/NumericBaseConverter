@@ -1,8 +1,7 @@
 #include <stdio.h>
-#define LOG			printf
 #define BIT_SIZE	32
+#define LOG			printf
 
-// reset values
 void	reset_values(char bin[BIT_SIZE]) {
 
 	for (int i = 0; i < BIT_SIZE; ++i)
@@ -19,7 +18,7 @@ void	convert(char bin[BIT_SIZE + 1], int x) {
 		pos = x >> i;
 		if (pos & 0x01)
 			bin[BIT_SIZE - 1 - i] = '1';
-#ifndef DEBUG
+#if DEBUG
 		LOG("[ %d ] pos: %d\n",i,pos);
 #endif
 	}
@@ -40,25 +39,23 @@ int main() {
 	int	 n[] = {256, 255, 150, 149, 99, 33,22};
 	int	 o[] = {-1,-2,-4,-127,0,-128, -129};
 
-	char	a[7][BIT_SIZE + 1] = {0};
+	char	output_format[7][BIT_SIZE + 1] = {0};
 
 	// TEST
 	int i = 1, j = 0;
 	while (i < 128) {
 		i *= 2;
-		convert(a[j], i);
-#ifndef DEBUG
-		LOG("arr:[%-3d] binary value : %s\n", i,(char *)a[j]);
-#endif
+		convert(output_format[j], i);
+		LOG("arr:[%-3d] binary value : %s\n", i,(char *)output_format[j]);
 		j += 1;
 	}
 
-	// REAL TESTS
+	// NEW TESTS
 	LOG("\n------   new tests  ------\n");
-	int size = sizeof(a) / sizeof(a[0]);
-	run_tests(a, m, size);
-	run_tests(a, n, size);
-	run_tests(a, o, size);
+	int size = sizeof(output_format) / sizeof(output_format[0]);
+	run_tests(output_format, m, size);
+	run_tests(output_format, n, size);
+	run_tests(output_format, o, size);
 
 	return 0;
 }

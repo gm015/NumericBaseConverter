@@ -1,9 +1,22 @@
 # convert values to binary format
 
+## Installation
+
+to compile the project run:
 ```bash
-gcc dec*.c && ./a.out
+make
+```
+
+to compile it with debugging option use:
+```bash
+make debug
+```
+
+to run it:
+```bash
+./main
 ```
 
 ## convert from decimal to binary format
 
-atm there's no feature to pass a desired value and input format
+- pass any value to the program WIP
