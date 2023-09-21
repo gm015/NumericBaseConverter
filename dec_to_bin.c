@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
 			continue;
 		}
 		convert(output_format[i], atoi(argv[i + 1]));
-		LOG(stderr, "input value: [%-3s] -- binary value: %s\n", argv[i+1],(char *)output_format[i]);
+		LOG(stderr, "input value: [%-4s] -- binary value: %s\n", argv[i+1],(char *)output_format[i]);
 	}
 
 	// free allocated memory
