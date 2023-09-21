@@ -9,7 +9,11 @@ make
 
 to compile it with debugging option use:
 ```bash
-make debug
+make debug-pars		#to get parsing info
+```
+or
+```bash
+make debug-val		# to get values info being set into binary format
 ```
 
 ## Usage

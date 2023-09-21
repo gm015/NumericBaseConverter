@@ -7,6 +7,12 @@
 #define BIT_SIZE	32
 #define LOG			fprintf
 
+//colors
+#define CYAN		"\x1b[36m"
+#define MAGENTA		"\x1b[35m"
+#define RED			"\x1b[31m"
+#define CLEAR		"\x1b[0m"
+
 // utils
 void	reset_values(char bin[BIT_SIZE]);
 
