@@ -8,7 +8,7 @@ CFLAGS:= -Wall -Werror -Wextra -g
 
 all: $(TARGET)
 
-debug:
+debug: c
 	@$(MAKE) DEBUG=1 all
 
 $(TARGET): $(OBJ)
