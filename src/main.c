@@ -19,8 +19,8 @@ int	find_args_limit(char **argv, int format_len, int pos) {
 void	binary_format(char **argv, int *position) {
 
 	int pos = ++(*position);
-	if (strncmp("--f", argv[pos], 3) != 0 || argv[pos][3] == '\0'){	// TODO remove last check if not needed
-		LOG(stderr, RED "invalid %s format%s\n", argv[pos], CLEAR);
+	if (strncmp("--f", argv[pos], 3) != 0 || argv[pos][3] == '\0') {
+		LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
 		return ;
 	}
 	
@@ -43,7 +43,7 @@ void	octal_format(char **s, int *pos) {
 
 /*
  * @param: input args of the program:
- *	1: -b  --f[8/16/32/64]  / -x --[u/U] / -o
+ *	1: --b  --f[8/16/32/64]  / --x --[u/U] / --o
  *  2: $ARG
  */
 
@@ -57,12 +57,15 @@ void	octal_format(char **s, int *pos) {
 
 	// process into necessary format: binary / hexadecimal / octal
 	char opt;
-	for (int pos = 1; pos <= argc; ++pos) {
+	for (int pos = 1; pos < argc; ++pos) {
 
-		if (argv[pos] && strncmp("--", argv[pos], 2) != 0) {
-			//|| argv[pos][2] != '\0') {
-			LOG(stderr, RED "invalid format\n" CLEAR);
-			++pos;
+		if (strncmp("--", argv[pos], 2) != 0) {
+
+			LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
+			int tmp = pos;
+			while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
+				++tmp;
+			pos = tmp;
 			continue;
 		}
 		opt = argv[pos][2];
@@ -75,7 +78,7 @@ void	octal_format(char **s, int *pos) {
 				octal_format(argv, &pos);
 				break;
 			default:
-				LOG(stderr, RED "invalid format\n" CLEAR);
+			LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
 		}
 	}
 
