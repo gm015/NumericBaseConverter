@@ -1,5 +1,13 @@
 #include "header.h"
 
+void	test_unsig(){
+	
+	unsigned int a = 1;
+	unsigned int b = -1;
+	LOG(stdout, "value of a is %d\n",a);
+	LOG(stdout, "value of b is %d\n",b);
+}
+
 static void	run_tests(char arr[][BIT_SIZE + 1], int num_arr[], int size) {
 
 	LOG(stdout, "\n");

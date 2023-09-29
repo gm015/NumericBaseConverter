@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+void	test_unsigned_int();
+
 #define BIT_SIZE	32
 #define LOG			fprintf
 

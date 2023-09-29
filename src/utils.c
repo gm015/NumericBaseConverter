@@ -1,5 +1,11 @@
 #include "header.h"
 
+void	store_data() {
+	// store data into a file / csv
+	//
+	//
+}
+
 int	invalid_digit(const char *s) {
 
 	int i = 0, skip_neg = 0;
