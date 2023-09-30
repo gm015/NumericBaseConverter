@@ -6,7 +6,6 @@
 
 void	test_unsigned_int();
 
-#define BIT_SIZE	32
 #define LOG			fprintf
 
 //colors
@@ -16,13 +15,13 @@ void	test_unsigned_int();
 #define CLEAR		"\x1b[0m"
 
 // utils
-void	reset_values(char bin[BIT_SIZE]);
+void	reset_values(char *arr, int size);
 
 // parsing
 int		invalid_digit(const char *s);
 
 // convert
-void	convert(char bin[BIT_SIZE + 1], int x);
+void	convert(char *bin, int format_size, int x);
 
 // tests
 void	tests();

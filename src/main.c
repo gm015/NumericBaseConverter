@@ -1,32 +1,76 @@
 #include "header.h"
 
-/*			start conversion		*/
-int	find_args_limit(char **argv, int format_len, int pos) { 
+/* @param:
+ * input_qty -> quantity of a user's input numbers
+ * format_len -> length of displayed bytes
+ */
+
+char **allocate_on_heap(unsigned int input_qty, unsigned int format_len) {
+
+	char **final_result = malloc(sizeof(*final_result) * input_qty);
+	if (final_result == NULL)
+		exit(1);
+
+	for (unsigned int i = 0; i < input_qty; ++i) {
+		final_result[i] = malloc(sizeof(char) * (format_len + 1));
+		if (final_result[i] == NULL)
+			exit(1);
+	}
+	return final_result;
+}
+
+void	free_heap(char **final_result, unsigned int len) {
+
+	for (unsigned int i = 0; i < len; ++i)
+		free(final_result[i]);
+	free(final_result);
+}
+
+/*
+ * find the last value of the arg (integer) to convert before new type of format starts
+ */
+
+int	find_args_limit(char **argv, unsigned int format_len, unsigned int pos) { 
 
 	int tmp = pos;
-	while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0) {
+	while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
 		++tmp;
-	}
-	LOG(stdout, "values: format_len = %d, arg[%d], tmp = %d \n",format_len, pos,tmp);
-
-	for (; pos < tmp; ++pos) {
-		LOG(stdout, "argv[%d]: %s \n",pos,argv[pos]);
-	}
 	return pos;
 }
 
-// set necessary format: 8, 16, 32, 64 -bit
+/*
+ * set necessary format: 8, 16, 32 or 64 -bit
+ */
+
 void	binary_format(char **argv, int *position) {
 
 	int pos = ++(*position);
 	if (strncmp("--f", argv[pos], 3) != 0 || argv[pos][3] == '\0') {
-		LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
+		LOG(stderr, RED "invalid format: %s%s\n", argv[pos], CLEAR);
 		return ;
 	}
 	
+	// update position for next format
 	int	format = atoi((char *)&argv[pos][3]);
 	int move_pos = find_args_limit(argv, format, ++pos);
 	*position += move_pos;
+
+	// allocate memory
+	unsigned int len = move_pos - *position;	
+	char **final_result = allocate_on_heap(len, format);
+
+	// start conversion
+	for (unsigned int i = 0; i < len; ++i) {
+
+		if (invalid_digit(argv[pos]) == 1) {
+			LOG(stderr, RED "invalid integer: %s%s\n", argv[pos], CLEAR);
+			continue;
+		}
+		convert(final_result[i], format, atoi(argv[pos]));
+		LOG(stdout, CYAN "input value: [%-4s]  binary value: %s%s\n", argv[pos], final_result[i], CLEAR);
+	}
+
+	free_heap(final_result, len);
 }
 
 void	hex_format(char **s, int *pos) {
@@ -42,7 +86,7 @@ void	octal_format(char **s, int *pos) {
 }
 
 /*
- * @param: input args of the program:
+ * @param: input args of the program
  *	1: --b  --f[8/16/32/64]  / --x --[u/U] / --o
  *  2: $ARG
  */
@@ -61,7 +105,7 @@ void	octal_format(char **s, int *pos) {
 
 		if (strncmp("--", argv[pos], 2) != 0) {
 
-			LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
+			LOG(stderr, RED "invalid format: %s%s\n", argv[pos], CLEAR);
 			int tmp = pos;
 			while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
 				++tmp;
@@ -78,7 +122,7 @@ void	octal_format(char **s, int *pos) {
 				octal_format(argv, &pos);
 				break;
 			default:
-			LOG(stderr, RED "invalid format: %s\n", argv[pos], CLEAR);
+			LOG(stderr, RED "invalid format: %s%s\n", argv[pos], CLEAR);
 		}
 	}
 

@@ -24,23 +24,24 @@ int	invalid_digit(const char *s) {
 	return 0;
 }
 
-void	reset_values(char bin[BIT_SIZE]) {
+void	reset_values(char *arr, int size) {
 
-	for (int i = 0; i < BIT_SIZE; ++i)
-		bin[i] = '0';
-	bin[BIT_SIZE]='\0';
+	int i = 0;
+	for (; i < size; ++i)
+		arr[i] = '0';
+	arr[size]='\0';
 }
 
 /*  convert integer values into binary  */
 
-void	convert(char bin[BIT_SIZE + 1], int x) {
+void	convert(char *bin, int format_size, int x) {
 
-	reset_values(bin);
+	reset_values(bin, format_size);
 
 	int i = 0, pos = x;
-	for (; (pos = x >> i) && i < BIT_SIZE; ++i) {
+	for (; (pos = x >> i) && i < format_size; ++i) {
 		if (pos & 0x01)
-			bin[BIT_SIZE - 1 - i] = '1';
+			bin[format_size - 1 - i] = '1';
 #if DEBUG_VAL
 		LOG(stdout, MAGENTA "[ %d ] val: %d%s\n",i,pos, CLEAR);
 #endif
