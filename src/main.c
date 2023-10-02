@@ -45,7 +45,7 @@ int	find_args_limit(char **argv, unsigned int format_len, unsigned int pos) {
 void	binary_format(char **argv, int *position) {
 
 	int pos = ++(*position);
-	if (strncmp("--f", argv[pos], 3) != 0 || argv[pos][3] == '\0') {
+	if (strncmp("--s", argv[pos], 3) != 0 || argv[pos][3] == '\0') {
 		LOG(stderr, RED "invalid format: %s%s\n", argv[pos], CLEAR);
 		return ;
 	}
