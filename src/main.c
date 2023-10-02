@@ -5,7 +5,7 @@
  * format_len -> length of displayed bytes
  */
 
-char **allocate_on_heap(unsigned int input_qty, unsigned int format_len) {
+char **allocate_mem(unsigned int input_qty, unsigned int format_len) {
 
 	char **final_result = malloc(sizeof(*final_result) * input_qty);
 	if (final_result == NULL)
@@ -35,7 +35,7 @@ int	find_args_limit(char **argv, unsigned int format_len, unsigned int pos) {
 	int tmp = pos;
 	while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
 		++tmp;
-	return pos;
+	return tmp;
 }
 
 /*
@@ -53,35 +53,43 @@ void	binary_format(char **argv, int *position) {
 	// update position for next format
 	int	format = atoi((char *)&argv[pos][3]);
 	int move_pos = find_args_limit(argv, format, ++pos);
-	*position += move_pos;
+	unsigned int len = move_pos - *position - 1;
+	//*position += move_pos;
 
 	// allocate memory
-	unsigned int len = move_pos - *position;	
-	char **final_result = allocate_on_heap(len, format);
+	char **final_result = allocate_mem(len, format);
 
 	// start conversion
-	for (unsigned int i = 0; i < len; ++i) {
+	for (unsigned int i = 0; i < len; ++i, ++pos) {
 
+		LOG(stdout, "input value: [%-4s]  binary value: ", argv[pos]); 
 		if (invalid_digit(argv[pos]) == 1) {
 			LOG(stderr, RED "invalid integer: %s%s\n", argv[pos], CLEAR);
 			continue;
 		}
 		convert(final_result[i], format, atoi(argv[pos]));
-		LOG(stdout, CYAN "input value: [%-4s]  binary value: %s%s\n", argv[pos], final_result[i], CLEAR);
+		LOG(stdout, CYAN "%s%s\n", final_result[i], CLEAR);
 	}
 
 	free_heap(final_result, len);
+	*position += pos;
 }
 
-void	hex_format(char **s, int *pos) {
+void	hex_format(char **argv, int *position) {
 
+	int pos = ++(*position);
+	(void)pos;
+	return ;
 	// set:
 	// - upper / UPPER case
 	// functionality
 }
 
-void	octal_format(char **s, int *pos) {
+void	octal_format(char **argv, int *position) {
 
+	int pos = ++(*position);
+	(void)pos;
+	return ;
 	// functionality
 }
 
