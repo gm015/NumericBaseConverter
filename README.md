@@ -9,7 +9,7 @@ make
 
 to compile it with debugging option use:
 ```bash
-make debug-pars		#to get parsing info
+make debug-pars		# to get parsing info
 ```
 or
 ```bash
@@ -18,12 +18,19 @@ make debug-val		# to get values info being set into binary format
 
 ## Usage
 
-to run it, specify the binary format (--b) and bit size (--f16, --f32, etc.)
+to run it, specify the binary format [--b] and bit size [--f16, --f32, etc.] after executable
 ```bash
-./main --b --f16 6 -1 128 42 4 256
+./main --b --f16 
 ```
 
-- pass any number of integers to the executable
+- pass any number of integers using a shell variable
+
+```bash
+ARG="-1 2 3 4 5 32"
+./main --b --f32 $ARG
+```
+
+- another way of passing arguments to the program:
 
 ```bash
 ./main --b --f32 -1 1 3 4 -10 14 4096 -5t - 9x 7
