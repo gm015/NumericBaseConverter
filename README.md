@@ -1,4 +1,4 @@
-# Convert decimal values (integers) to specified [8/16/32/64] binary format
+# Convert integers to binary / hexadecimal / octal values
 
 ## Installation
 
@@ -13,27 +13,43 @@ make debug-pars		# to get parsing info
 ```
 or
 ```bash
-make debug-val		# to get values info being set into binary format
+make debug-val		# to get values while being set into binary format
 ```
 
 ## Usage
 
-to run it, specify the binary format [--b] and bit size [--f16, --f32, etc.] after executable
+to run it, specify the needed system:
+
+- binary system [--b] and bit size [--s16, --s32, etc.]
+
 ```bash
-./main --b --f16 
+./main --b --s16 
 ```
 
-- pass any number of integers using a shell variable
+- hexadecimal system [--x] and upper/lower case [--U, --u]
+
+```bash
+./main --x --U
+```
+
+- octal system [--o]
+
+```bash
+./main --o
+```
+
+
+* Pass any number of integers using a shell variable
 
 ```bash
 ARG="-1 2 3 4 5 32"
-./main --b --f32 $ARG
+./main --b --s32 $ARG
 ```
 
 - another way of passing arguments to the program:
 
 ```bash
-./main --b --f32 -1 1 3 4 -10 14 4096 -5t - 9x 7
+./main --b --s32 -1 1 3 4 -10 14 4096 -5t - 9x 7
 ```
 
 The given output looks as follows:
