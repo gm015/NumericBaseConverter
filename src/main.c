@@ -62,12 +62,12 @@ void	binary_format(char **argv, int *position) {
 	// start conversion
 	for (unsigned int i = 0; i < len; ++i, ++pos) {
 
-		LOG(stdout, "input value: [%-4s]  binary value: ", argv[pos]); 
 		if (invalid_digit(argv[pos]) == 1) {
 			LOG(stderr, RED "invalid integer: %s%s\n", argv[pos], CLEAR);
 			continue;
 		}
 		convert(final_result[i], format, atoi(argv[pos]));
+		LOG(stdout, "input value: [%-4s]  binary value: ", argv[pos]); 
 		LOG(stdout, CYAN "%s%s\n", final_result[i], CLEAR);
 	}
 
