@@ -9,12 +9,13 @@ make
 
 to compile it with debugging option use:
 ```bash
-make debug-pars		# to get parsing info
+make debug-pars		# to get parsing info for each input
 ```
 or
 ```bash
-make debug-val		# to get values while being set into binary format
+make debug-val		# to get values while input being set into needed system
 ```
+
 
 ## Usage
 
@@ -37,7 +38,6 @@ to run it, specify the needed system:
 ```bash
 ./main --o
 ```
-
 
 * Pass any number of integers using a shell variable
 

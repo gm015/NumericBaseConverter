@@ -1,11 +1,5 @@
 #include "header.h"
 
-void	store_data() {
-	// store data into a file / csv
-	//
-	//
-}
-
 int	invalid_digit(const char *s) {
 
 	int i = 0, skip_neg = 0;
@@ -24,27 +18,58 @@ int	invalid_digit(const char *s) {
 	return 0;
 }
 
-void	reset_values(char *arr, int size) {
+/*
+ * reset values before setting them
+ */
+
+void	reset_values(char *arr, int size, char c) {
 
 	int i = 0;
 	for (; i < size; ++i)
-		arr[i] = '0';
+		arr[i] = c;
 	arr[size]='\0';
 }
 
-/*  convert integer values into binary  */
+/* @param:
+ * input_qty -> quantity of a user's input numbers
+ * format_len -> length of displayed bytes
+ */
 
-void	convert(char *bin, int format_size, int x) {
+char	**allocate_mem(unsigned int input_qty, unsigned int format_len) {
 
-	reset_values(bin, format_size);
+	char **final_result = malloc(sizeof(*final_result) * input_qty);
+	if (final_result == NULL)
+		exit(1);
 
-	int i = 0, pos = x;
-	for (; (pos = x >> i) && i < format_size; ++i) {
-		if (pos & 0x01)
-			bin[format_size - 1 - i] = '1';
-#if DEBUG_VAL
-		LOG(stdout, MAGENTA "[ %d ] val: %d%s\n",i,pos, CLEAR);
-#endif
+	for (unsigned int i = 0; i < input_qty; ++i) {
+		final_result[i] = malloc(sizeof(char) * (format_len + 1));
+		if (final_result[i] == NULL)
+			exit(1);
 	}
+	return final_result;
 }
 
+void	free_heap(char **final_result, unsigned int len) {
+
+	for (unsigned int i = 0; i < len; ++i)
+		free(final_result[i]);
+	free(final_result);
+}
+
+/*
+ * find the last value of the arg (integer) to convert before new type of format starts
+ */
+
+int	find_args_limit(char **argv, unsigned int pos) {
+
+	int tmp = pos;
+	while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
+		++tmp;
+	return tmp;
+}
+
+void	store_data() {
+	// store data into a file / csv
+	//
+	//
+}
