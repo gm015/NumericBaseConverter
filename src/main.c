@@ -20,19 +20,19 @@ int main(int argc, char **argv) {
 
 		if (strncmp("--", argv[pos], 2) != 0) {
 
-			LOG(stderr, RED "invalid format: %s%s\n", argv[pos], CLEAR);
-			int tmp = pos;
-			while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
-				++tmp;
-			pos = tmp;
+			LOG(stderr, RED "invalid format specifier: %s%s\n", argv[pos], CLEAR);
+			while (argv[pos] && strncmp("--",argv[pos], 2) != 0)
+				++pos;
 			continue;
 		}
 		opt = argv[pos][2];
 		switch (opt) {
 			case 'b':
 				binary_format(argv, &pos);
+				break;
 			case 'x':
 				hex_format(argv, &pos);
+				break;
 			case 'o':
 				octal_format(argv, &pos);
 				break;

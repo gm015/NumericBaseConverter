@@ -23,20 +23,28 @@ void	convert_binary(char *bin, int format_size, int x) {
 void	binary_format(char **argv, int *position) {
 
 	int pos = ++(*position);
+	int exit_code = 0;
 	if (strncmp("--s", argv[pos], 3) != 0 || argv[pos][3] == '\0') {
 		LOG(stderr, RED "invalid format specifier: %s%s\n", argv[pos], CLEAR);
+		exit_code = pos;
+	}
+
+	// update position for next format specifier
+	unsigned int move_pos = find_args_limit(argv, pos);
+	unsigned int len = move_pos - *position;
+	*position += len;
+
+	char *inp = (char *)&argv[pos][3]; 
+	if (exit_code || invalid_digit(inp) == 1) {
+		LOG(stderr, RED "invalid format specifier: %s%s\n", inp, CLEAR);
 		return ;
 	}
-	
-	// update position for next format
-	int	format = atoi((char *)&argv[pos][3]);
-	int move_pos = find_args_limit(argv, ++pos);
-	unsigned int len = move_pos - *position - 1;
 
-	// allocate memory
+	int	format = atoi(inp);
 	char **final_result = allocate_mem(len, format);
 
 	// start conversion
+	++pos;
 	for (unsigned int i = 0; i < len; ++i, ++pos) {
 
 		if (invalid_digit(argv[pos]) == 1) {
@@ -49,5 +57,4 @@ void	binary_format(char **argv, int *position) {
 	}
 
 	free_heap(final_result, len);
-	*position += pos;
 }

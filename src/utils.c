@@ -60,12 +60,12 @@ void	free_heap(char **final_result, unsigned int len) {
  * find the last value of the arg (integer) to convert before new type of format starts
  */
 
-int	find_args_limit(char **argv, unsigned int pos) {
+unsigned int	find_args_limit(char **argv, unsigned int pos) {
 
-	int tmp = pos;
+	int tmp = ++pos;
 	while (argv[tmp] && strncmp("--",argv[tmp], 2) != 0)
 		++tmp;
-	return tmp;
+	return (tmp - 1);
 }
 
 void	store_data() {

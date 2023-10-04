@@ -8,7 +8,7 @@ SRC_DIR	:=src
 
 SRC		:= main.c utils.c binary.c hex.c octal.c #tests.c
 OBJ		:= $(addprefix $(OBJ_DIR)/,$(notdir $(SRC:.c=.o)))
-CFLAGS	:= -Wall -Werror -Wextra -Wno-implicit-fallthrough -g #-Wno-unused-parameter
+CFLAGS	:= -Wall -Werror -Wextra -g #-Wno-unused-parameter
 DEBUG_VAL	=0
 DEBUG_PARS	=0
 DEBUG		= -D DEBUG_VAL=$(DEBUG_VAL) -D DEBUG_PARS=$(DEBUG_PARS)

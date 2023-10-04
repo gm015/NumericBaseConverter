@@ -31,8 +31,9 @@ void	hex_format(char **argv, int *position) {
 	}
 	
 	// update position for next format
-	int move_pos = find_args_limit(argv, ++pos);
+	int move_pos = find_args_limit(argv, pos);
 	unsigned int len = move_pos - *position - 1;
+	*position += pos;
 
 	// allocate memory
 	char **final_result = allocate_mem(len, 20);
@@ -50,5 +51,4 @@ void	hex_format(char **argv, int *position) {
 	}
 
 	free_heap(final_result, len);
-	*position += pos;
 }

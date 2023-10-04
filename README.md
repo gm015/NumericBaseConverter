@@ -24,7 +24,7 @@ to run it, specify the needed system:
 - binary system [--b] and bit size [--s16, --s32, etc.]
 
 ```bash
-./main --b --s16 
+./main --b --s4
 ```
 
 - hexadecimal system [--x] and upper/lower case [--U, --u]
@@ -47,6 +47,10 @@ ARG="-1 2 3 4 5 32"
 ```
 
 - another way of passing arguments to the program:
+
+```bash
+./main --b --s4 -1 0 1 2 3 4 --b --s16 64 255 77 -44
+```
 
 ```bash
 ./main --b --s32 -1 1 3 4 -10 14 4096 -5t - 9x 7
