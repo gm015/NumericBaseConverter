@@ -6,9 +6,9 @@ void	convert_binary(char *bin, int format_size, int x) {
 
 	reset_values(bin, format_size, '0');
 
-	int i = 0, pos = x;
-	for (; (pos = x >> i) && i < format_size; ++i) {
-		if (pos & 0x1)
+	int i = 0;
+	for (; i < format_size; ++i) {
+		if ((x >> i) & 0x1)
 			bin[format_size - 1 - i] = '1';
 #if DEBUG_VAL
 		LOG(stdout, MAGENTA "[ %d ] val: %d%s\n",i,pos, CLEAR);
