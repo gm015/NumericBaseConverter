@@ -6,12 +6,11 @@ void	convert_binary(char *bin, int format_size, int x) {
 
 	reset_values(bin, format_size, '0');
 
-	int i = 0;
-	for (; i < format_size; ++i) {
+	for (int i = 0; i < format_size; ++i) {
 		if ((x >> i) & 0x1)
 			bin[format_size - 1 - i] = '1';
 #if DEBUG_VAL
-		LOG(stdout, MAGENTA "[ %d ] val: %d%s\n",i,pos, CLEAR);
+		LOG(stdout, MAGENTA "[ %d ] %s\n",i, CLEAR);
 #endif
 	}
 }

@@ -27,7 +27,7 @@ int				invalid_digit(const char *s);
 
 // convert
 void			convert_binary(char *bin, int format_size, int x);
-void			convert_hex(char *bin, int format_size, int x);
+void			convert_hex(char *bin, int x);
 void			convert_octal(char *bin, int format_size, int x);
 
 void			binary_format(char **argv, int *position);
