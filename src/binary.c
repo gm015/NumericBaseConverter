@@ -33,9 +33,14 @@ void	binary_format(char **argv, int *position) {
 	unsigned int len = move_pos - *position;
 	*position += len;
 
+	if (!len) {
+		LOG(stderr, RED "missing input values%s\n", CLEAR);
+		return ;
+	}
+
 	char *inp = (char *)&argv[pos][3]; 
 	if (exit_code || invalid_digit(inp) == 1) {
-		LOG(stderr, RED "invalid format specifier: %s%s\n", inp, CLEAR);
+		// TODO REMOVE
 		return ;
 	}
 
@@ -47,7 +52,7 @@ void	binary_format(char **argv, int *position) {
 	for (unsigned int i = 0; i < len; ++i, ++pos) {
 
 		if (invalid_digit(argv[pos]) == 1) {
-			LOG(stderr, RED "invalid integer: %s%s\n", argv[pos], CLEAR);
+			LOG(stderr, RED "invalid input value (not an integer): %s%s\n", argv[pos], CLEAR);
 			continue;
 		}
 		convert_binary(final_result[i], format, atoi(argv[pos]));
